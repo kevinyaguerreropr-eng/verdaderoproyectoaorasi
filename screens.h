@@ -16,7 +16,9 @@ enum ScreensEnum {
     SCREEN_ID_BOTON_TEMP = 3,
     SCREEN_ID_BOTON_CALENDARIO = 4,
     SCREEN_ID_BOTON_CONTROL = 5,
-    _SCREEN_ID_LAST = 5
+    SCREEN_ID_ALIVIO_GUIADO = 6,
+    SCREEN_ID_INFORMACION_DATOS = 7,
+    _SCREEN_ID_LAST = 7
 };
 
 typedef struct _objects_t {
@@ -25,6 +27,8 @@ typedef struct _objects_t {
     lv_obj_t *boton_temp;
     lv_obj_t *boton_calendario;
     lv_obj_t *boton_control;
+    lv_obj_t *alivio_guiado;
+    lv_obj_t *informacion_datos;
     lv_obj_t *obj0;
     lv_obj_t *obj1;
     lv_obj_t *obj2;
@@ -41,7 +45,6 @@ typedef struct _objects_t {
     lv_obj_t *obj13;
     lv_obj_t *obj14;
     lv_obj_t *obj15;
-    lv_obj_t *calendario;
     lv_obj_t *obj16;
     lv_obj_t *obj17;
     lv_obj_t *obj18;
@@ -50,9 +53,11 @@ typedef struct _objects_t {
     lv_obj_t *obj21;
     lv_obj_t *obj22;
     lv_obj_t *obj23;
+    lv_obj_t *obj24;
+    lv_obj_t *obj25;
     lv_obj_t *au_temp;
     lv_obj_t *dis_temp;
-    lv_obj_t *obj24;
+    lv_obj_t *obj26;
 } objects_t;
 
 extern objects_t objects;
@@ -71,6 +76,12 @@ void tick_screen_boton_calendario();
 
 void create_screen_boton_control();
 void tick_screen_boton_control();
+
+void create_screen_alivio_guiado();
+void tick_screen_alivio_guiado();
+
+void create_screen_informacion_datos();
+void tick_screen_informacion_datos();
 
 void tick_screen_by_id(enum ScreensEnum screenId);
 void tick_screen(int screen_index);
