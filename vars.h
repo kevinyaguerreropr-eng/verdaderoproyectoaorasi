@@ -13,12 +13,21 @@ extern "C" {
 // Flow global variables
 
 enum FlowGlobalVariables {
-    FLOW_GLOBAL_VARIABLE_TEMPERATURA_CORPORAL = 0,
-    FLOW_GLOBAL_VARIABLE_FECHA_CALEND = 1,
-    FLOW_GLOBAL_VARIABLE_LED_ON = 2
+    FLOW_GLOBAL_VARIABLE_NONE
 };
 
 // Native global variables
+
+extern int32_t get_var_dia_inicio();
+extern void set_var_dia_inicio(int32_t value);
+extern int32_t get_var_mes_inicio();
+extern void set_var_mes_inicio(int32_t value);
+extern int32_t get_var_anio_inicio();
+extern void set_var_anio_inicio(int32_t value);
+extern int32_t get_var_duracion_periodo();
+extern void set_var_duracion_periodo(int32_t value);
+extern int32_t get_var_duracion_ciclo();
+extern void set_var_duracion_ciclo(int32_t value);
 
 #ifdef __cplusplus
 }

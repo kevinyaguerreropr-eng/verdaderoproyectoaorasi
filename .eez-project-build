@@ -1,5 +1,6 @@
 {
   "files": [
+    "actions.cpp",
     "actions.h",
     "eez-flow.cpp",
     "eez-flow.h",
@@ -13,10 +14,9 @@
     "styles.h",
     "ui.c",
     "ui.h",
-    "ui_image_biomedica2_logo.c",
-    "ui_image_logo_proyecto.c",
-    "ui_image_logo_u_uecci.c",
-    "ui_image_menu_principal.c",
+    "ui_image_biomedica.c",
+    "ui_image_ecci.c",
+    "ui_image_logo.c",
     "vars.h"
   ]
 }

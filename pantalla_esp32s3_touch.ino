@@ -112,15 +112,77 @@ bool init_gt911() {
   return GT911.begin(Wire, gt911_i2c_addr, 15, 7);
 }
 
+// ================= CONTROL TEMPERATURA =================
+bool ciclo_activo = false;
+bool calentando = false;
+
+unsigned long tiempoAnterior = 0;
+
+const unsigned long tiempoON = 25000;    // 
+const unsigned long tiempoOFF = 120000;  // 2 minutos
+
 // ================= BOTONES UI =================
 void btn_off_event(lv_event_t *e) {
-  pcf_digitalWrite(0, false);  //  encender
-  USBSerial.println("LED ON");
+
+  ciclo_activo = false;
+
+  // APAGAR resistencia
+  pcf_digitalWrite(0, false);
+
+  USBSerial.println("Sistema OFF");
 }
 
 void btn_on_event(lv_event_t *e) {
-  pcf_digitalWrite(0, true);  //  apagar
-  USBSerial.println("LED OFF");
+
+  ciclo_activo = true;
+  calentando = true;
+
+  // ENCENDER resistencia
+  pcf_digitalWrite(0, true);
+
+  tiempoAnterior = millis();
+
+  USBSerial.println("Sistema ON");
+}
+
+// ================= CONTROL AUTOMATICO =================
+void controlTemperatura() {
+
+  if (!ciclo_activo) return;
+
+  unsigned long tiempoActual = millis();
+
+  // ================= CALENTANDO =================
+  if (calentando) {
+
+    if (tiempoActual - tiempoAnterior >= tiempoON) {
+
+      calentando = false;
+
+      // APAGAR resistencia
+      pcf_digitalWrite(0, false);
+
+      tiempoAnterior = tiempoActual;
+
+      USBSerial.println("Resistencia OFF");
+    }
+  }
+
+  // ================= ENFRIANDO =================
+  else {
+
+    if (tiempoActual - tiempoAnterior >= tiempoOFF) {
+
+      calentando = true;
+
+      // ENCENDER resistencia
+      pcf_digitalWrite(0, true);
+
+      tiempoAnterior = tiempoActual;
+
+      USBSerial.println("Resistencia ON");
+    }
+  }
 }
 
 // ================= SETUP =================
@@ -215,6 +277,9 @@ void loop() {
   lv_timer_handler();
   lv_tick_inc(5);
   ui_tick();
+
+  //control temp
+  controlTemperatura();
 
   delay(0);
 }
